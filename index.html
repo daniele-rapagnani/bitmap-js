@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simple Bitmap Browser Test</title>
+	<script type="text/javascript" src="lib/bitmap.js"></script>
+</head>
+<body>
+	<a id="download-link" href="#" download="test.bmp">Download Bitmap</a>
+
+	<script type="text/javascript">
+		var bmp = new Bitmap(256, 100, 8);
+
+		for (var i = 0; i < 256; i++) {
+			var lightness = Math.round(0xFF * (i / 255));
+			bmp.setPaletteColor(i, (lightness << 16) | ((0xFF - lightness) << 8));
+		}
+
+		for (var x = 0; x < bmp.width; x++) {
+			for (var y = 0; y < bmp.height; y++) {
+				bmp.setPixel(x, y, x);
+			}
+		}
+
+		document.getElementById("download-link").href = bmp.getURL();
+	</script>
+</body>
+</html>
